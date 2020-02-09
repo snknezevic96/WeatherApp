@@ -71,7 +71,6 @@ class WeatherViewModel(
     }
 
     fun refreshCurrentLocation(activity: Activity) {
-        //locationRequested = true
 
         if (gpsState.value == null)
             gpsState.value = locationManager.gpsState()
@@ -81,6 +80,8 @@ class WeatherViewModel(
     fun initializeLocationListener() {
         //used only for case when location permission granted, but location is off
         //call will initialize location lister (need for listening on gps provider state change)
+        if(locationManager.gpsState())
+            locationState.value = LocationState.IN_PROGRESS
         locationManager.getCurrentDeviceLocation()
     }
 

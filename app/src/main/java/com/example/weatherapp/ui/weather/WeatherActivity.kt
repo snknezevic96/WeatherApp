@@ -36,6 +36,8 @@ class WeatherActivity : AppCompatActivity() {
 
         cityFromMaps = intent.extras?.getString("cityName")
 
+        observeLocationState()
+
         if (cityFromMaps != null)
             viewModel.getLocationDataByCityName(cityFromMaps!!)
          else
@@ -49,7 +51,6 @@ class WeatherActivity : AppCompatActivity() {
         observeWeatherData()
         observeLiveGpsLocation()
 
-        observeLocationState()
         observeGpsState()
     }
 
