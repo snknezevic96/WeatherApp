@@ -1,6 +1,7 @@
 package com.example.weatherapp
 
 import android.app.Application
+import com.example.weatherapp.BuildConfig
 import com.example.weatherapp.di.applicationModule
 import com.example.weatherapp.di.networkModule
 import org.koin.android.ext.koin.androidContext

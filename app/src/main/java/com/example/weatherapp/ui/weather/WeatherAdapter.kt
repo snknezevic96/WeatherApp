@@ -1,17 +1,15 @@
-package com.example.weatherapp.ui
+package com.example.weatherapp.ui.weather
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
 import kotlinx.android.synthetic.main.weather_day_info_item.view.*
-import kotlinx.android.synthetic.main.weather_info_item.view.*
 import kotlinx.android.synthetic.main.weather_info_item.view.image_view
 import kotlinx.android.synthetic.main.weather_info_item.view.value_view
 
-class WeatherInfoAdapter(private val type: String) : RecyclerView.Adapter<WeatherInfoAdapter.ViewHolder>(){
+class WeatherAdapter(private val type: String) : RecyclerView.Adapter<WeatherAdapter.ViewHolder>(){
 
     var items = listOf<Pair<String, Int>>()
 
@@ -21,7 +19,9 @@ class WeatherInfoAdapter(private val type: String) : RecyclerView.Adapter<Weathe
             "daily" -> {R.layout.weather_day_info_item}
             else -> 0
         }
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(layout, parent, false))
+        return ViewHolder(
+            LayoutInflater.from(parent.context).inflate(layout, parent, false)
+        )
     }
 
     override fun getItemCount(): Int = items.size

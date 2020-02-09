@@ -44,7 +44,6 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0-beta01'
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
     //Android Navigation Component
@@ -76,5 +75,7 @@ dependencies {
 
     //RecyclerView
     implementation 'androidx.recyclerview:recyclerview:1.1.0-beta04'
+
+    implementation 'com.google.android.libraries.places:places-compat:2.1.0'
 
 }
