@@ -30,7 +30,7 @@ val networkModule = module {
     single { Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create(get()))
         .client(get())
-        .baseUrl(/*"https://api.openweathermap.org/data/2.5/"*/"https://www.metaweather.com/")
+        .baseUrl("https://www.metaweather.com/")
         .build()
         .create(ApiService::class.java) }
 }

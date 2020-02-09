@@ -31,14 +31,14 @@
         android:textAlignment="center"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:layout_height="wrap_content"/>
 
     <View
         android:id="@+id/end_line_view"
         android:layout_width="1dp"
         android:layout_height="0dp"
-        android:background="#FFFFFF"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

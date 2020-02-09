@@ -4,14 +4,11 @@ import com.example.weatherapp.ui.weather.WeatherViewModel
 import com.example.weatherapp.data.Repository
 import com.example.weatherapp.ui.map.MapsViewModel
 import com.example.weatherapp.util.LocationManager
-import com.squareup.picasso.Picasso
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 
 val applicationModule = module {
-
-    factory { Picasso.get() }
 
     single { Repository(get()) }
 

@@ -29,9 +29,6 @@ class MapsViewModel(private val locationManager: LocationManager) : ViewModel() 
 
     private fun gpsState() = locationManager.gpsState()
 
-    private fun requestGps(activity: Activity) = locationManager.requestGps(activity)
-
-
     fun getCurrentLocation(activity: Activity) {
 
         when {
@@ -40,17 +37,16 @@ class MapsViewModel(private val locationManager: LocationManager) : ViewModel() 
         }
     }
 
-    private fun updateLocationUI(activity: Activity) {
+    fun updateLocationUI() {
 
         try {
             if (gpsState()) {
-                googleMap!!.isMyLocationEnabled = true
-                googleMap!!.uiSettings.isMyLocationButtonEnabled = true
+                googleMap?.isMyLocationEnabled = true
+                googleMap?.uiSettings?.isMyLocationButtonEnabled = true
             }
             else {
-                googleMap!!.isMyLocationEnabled = false
-                googleMap!!.uiSettings.isMyLocationButtonEnabled = false
-                requestGps(activity)
+                googleMap?.isMyLocationEnabled = false
+                googleMap?.uiSettings?.isMyLocationButtonEnabled = false
             }
         } catch (e: SecurityException) {
             Log.e("SECURITY_ERROR", e.message ?: "unknown")
@@ -88,7 +84,7 @@ class MapsViewModel(private val locationManager: LocationManager) : ViewModel() 
     fun onMapReady(googleMap: GoogleMap, activity: Activity) {
         this.googleMap = googleMap
 
-        updateLocationUI(activity)
+        updateLocationUI()
         getCurrentLocation(activity)
 
         googleMap.setOnMapClickListener { latLon ->

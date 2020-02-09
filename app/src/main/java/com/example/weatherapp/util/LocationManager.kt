@@ -11,10 +11,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
-import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.common.api.PendingResult
-import com.google.android.gms.common.api.Status
+import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
+
 
 class LocationManager(private val context: Context) {
 
@@ -53,37 +52,30 @@ class LocationManager(private val context: Context) {
         return mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
 
-
     fun requestGps(activity: Activity) {
-        val googleApiClient = GoogleApiClient.Builder(context).addApi(LocationServices.API).build()
-        googleApiClient.connect()
-
         val locationRequest = LocationRequest.create()
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         locationRequest.interval = 10000
         locationRequest.fastestInterval = 10000 / 2.toLong()
 
         val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
-        builder.setAlwaysShow(true)
 
-        val result: PendingResult<LocationSettingsResult> = LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build())
+        val client = LocationServices.getSettingsClient(activity)
+        val task = client.checkLocationSettings(builder.build())
 
-        result.setResultCallback {
-            val status: Status = it.status
-
-            when (status.statusCode) {
-                LocationSettingsStatusCodes.SUCCESS -> Log.i("SUCCESS", "All location settings are satisfied.")
-                LocationSettingsStatusCodes.RESOLUTION_REQUIRED -> {
-                    Log.i("GPS OFF","Requesting GPS ")
-                    try {
-                        status.startResolutionForResult(activity, REQUEST_CHECK_SETTINGS)
-                    } catch (e: IntentSender.SendIntentException) {
-                        Log.i("ERROR", "PendingIntent unable to execute request.")
-                    }
+        task.addOnCompleteListener {
+            Log.i("SUCCESS", "All location settings are satisfied.")
+        }
+        task.addOnFailureListener {
+            if(it is ResolvableApiException) {
+                try {
+                    it.startResolutionForResult(activity, REQUEST_CHECK_SETTINGS)
                 }
-                LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE ->
-                    Log.i("ERROR", "Location settings are unavailable!!!")
+                catch (e: IntentSender.SendIntentException) {
+                    Log.i("ERROR", e.message ?: "Location settings are unavailable!!!")
+                }
             }
         }
+
     }
 }

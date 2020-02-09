@@ -45,7 +45,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun observeGpsState() = viewModel.liveGpsState.observe(this, Observer {
         if(it == null) return@Observer
-        viewModel.getCurrentLocation(this)
+        if(it)
+            viewModel.getCurrentLocation(this)
+        viewModel.updateLocationUI()
     })
 
     override fun onMapReady(googleMap: GoogleMap) {
